@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import rootRoutes from './components/admin/rootRoutes';
+import Auth from './components/auth';
+import NoMatch from './components/nomatch';
+import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
+// import PrivateRoute from './components/auth/PrivateRoute';
+import { getCookie } from './function';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { NotificationContainer } from "react-notifications";
+import "react-notifications/lib/notifications.css";
+export default class App extends Component {
+	render() {
+		return (
+			<div className="App">
+				<BrowserRouter>
+				<NotificationContainer />
+					<Switch>
+						<Route path='/auth' component={Auth} />
+						{getCookie('token') ? <Route path='/admin' component={rootRoutes} /> : <Redirect to={"/auth/login"} />}
+						{getCookie('token') ? <Redirect to={"/admin"} /> : <Redirect to={"/auth/login"} />}
+						<Route component={NoMatch} />
+					</Switch>
+				</BrowserRouter>
+			</div>
+		);
+	}
 }
 
-export default App;
