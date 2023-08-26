@@ -6,8 +6,8 @@ import { setCookie,getCookie, eraseCookie } from '../../../function';
 const getUserLogin = async (data) => {
     try {
         let result = await api.post(Apis.GetUserLogin,data,{
-            withCredentials: true,
-            headers: {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'}
+            
+            headers: {'Content-Type': 'application/json'}
         });
         if (result.data.error) {
             NotificationManager.error(result.data.error);
