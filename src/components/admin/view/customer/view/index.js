@@ -9,6 +9,7 @@ import { NotificationManager } from "react-notifications";
 import swal from "sweetalert";
 import Axios from "axios";
 import { useHistory } from "react-router-dom";
+import { API_URL } from "../../../../../config1";
 
 const View = () => {
   const history= useHistory()
@@ -79,7 +80,7 @@ const View = () => {
 
     // Đóng popup và làm mới danh sách khách hàng
     const res= await Axios({
-      url: "http://localhost:4000/api/customer/register",
+      url: API_URL + "/api/customer/register",
       method: "post",
       data: {
         ...newCustomer
